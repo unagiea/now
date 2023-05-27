@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Now</title>
+    <style>
+        body{
+            background-color: rgb(255, 255, 255);
+            overflow: hidden;
+        }
+        #bou{
+            height: 4px;
+            width: 310px;
+            background-color: rgb(0, 0, 0);
+            transform:rotate(-90deg);
+            transform-origin:left center;
+            position: absolute;
+            bottom: 315px;
+            left: 308px;
+            border-radius: 2px;
+            box-shadow: 0px 2px 15px 0px rgba(0, 0, 0, 0.623);
+        }
+        #bou2{
+            height: 100px;
+            width: 4px;
+            background-color: rgb(0, 0, 0);
+            position: absolute;
+            bottom: 0px;
+            left: 600px;
+            border-radius: 2px;
+            box-shadow: 0px 2px 15px 0px rgba(0, 0, 0, 0.623);
+        }
+        #i2{
+            position: relative;
+            right: 30px;
+        }
+        h1{
+            color: rgb(255, 255, 255);
+            position: absolute;
+            top: 10px;
+            left: 550px;
+        }
+        #kt{
+            position: absolute;
+            left: 1280px;
+            top: 570px;
+            width: 80px;
+            height: 50px;
+            background-color: rgb(234, 140, 45);
+            color: #fff;
+            border-radius: 5px;
+            z-index: 10;
+        }
+        #kt:hover{
+            background-color: rgb(255, 174, 93);
+            cursor: pointer;
+            transition: all 0.2s;
+
+        }
+        #ktmenu{
+            position: absolute;
+            background-color: rgb(198, 62, 62);
+            left: 1280px;
+            top: 570px;
+            width: 80px;
+            height: 50px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        #ktmenup{
+            color: #fff;
+            font-weight: 900;
+            font-size: 20px;
+            margin: 20px;
+            text-align: center;
+        }
+        .kmp{
+            color: #fff;
+            font-weight: 500;
+            font-size: 20px;
+            margin: 20px;
+            display: inline;
+        }
+        #nanbyo{
+            height: 50px;
+            border-radius: 5px;
+        }
+        #start{
+            height: 55px;
+            width: 50px;
+            border-radius: 5px;
+            position: relative;
+            left: 20px;
+            background-color: rgb(135, 226, 31);
+        }
+        #start:hover{
+            transition: all 0.2s;
+            background-color: rgb(174, 255, 81);
+            cursor: pointer;
+        }
+        #katudougennkaimadeato{
+            color: rgb(255, 255, 255);
+            font-weight: 900;
+            font-size: 50px;
+            margin: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <img src="平日1.png" alt="" height="600px" id="i1">
+    <img src="120分.png" alt="" width="600px" id="i2">
+    <div id="bou"></div>
+    <div id="bou2"></div>
+    <h1>休み時間です。200cm2の水を飲み、目を閉じましょう。</h1>
+    <input type="button" value="KNTR" id="kt">
+    <div id="ktmenu">
+        <p id="ktmenup">今日のKNTR</p>
+        <p class="kmp">胸、背</p><br><br><br><br><br><br>
+        <p class="kmp" >クールタイム</p><input type="number" id="nanbyo" value="80" step="10" min="0">
+        <input type="button" value="開始" id="start">
+        <p id="katudougennkaimadeato">00.00</p>
+    </div>
+    <script>
+        let kntrMenu = [""];
+        let bou = document.getElementById("bou");
+        let bou2 = document.getElementById("bou2");
+
+        let i = document.getElementById("i1");
+        let ii = document.getElementById("i2");
+
+        let km = document.getElementById("ktmenu");
+        km.style.height = "50px";
+        let kt = document.getElementById("kt");
+        kt.addEventListener("click",()=>{
+            if(km.style.height == "50px"){
+                km.style.height = "500px";
+                km.style.width = "600px";
+                km.style.top = "120px";
+                km.style.left = "760px";
+            }else{
+                console.log(km.style);
+                km.style.height = "50px";
+                km.style.width = "80px";
+                km.style.top = "570px";
+                km.style.left = "1280px";
+            }
+            
+        })
+        let nokori = document.getElementById("katudougennkaimadeato");
+        let sec = document.getElementById("nanbyo");
+        let btn = document.getElementById("start");
+        let nk = 0;
+        let hk = 0;
+        btn.addEventListener("click",()=>{
+            nokori.style.color = "#fff";
+            nk = Number(`${sec.value}00`);
+            nokori.textContent = sec.value + ".00";
+            let inter = setInterval(() => {
+                nk--;
+                hk = String(nk);
+                if(hk.length == 3){
+                    hk = "0" + hk;
+                }else if(hk.length == 2){
+                    hk = "00" + hk;
+                }else if(hk.length == 1){
+                    hk = "000" + hk;
+                }
+                console.log(nk , hk , nokori.textContent1 , sec.value);
+                nokori.textContent = `${hk[0]}${hk[1]}.${hk[2]}${hk[3]}`;
+            }, 10);
+            setTimeout(() => {
+                clearInterval(inter);
+                nokori.textContent = "00.00";
+                nokori.style.color = "rgb(255, 0, 0)";
+            }, Number(`${sec.value}000`));
+        })
+
+        let date = new Date();
+        let time = date.getHours() + (date.getMinutes() / 60) + (date.getSeconds() / 3600);
+        bou.style.transform= ` rotate(${(15 * time) - 90}deg)`;
+        console.log(date.getDay());
+        
+        if(date.getDay() >= 1 && date.getDay() <= 5 && date.getDay() != 3){ //BKTあり平日
+            setInterval(()=>{
+                date = new Date();
+                time = date.getHours() + (date.getMinutes() / 60) + (date.getSeconds() / 3600);
+                bou.style.transform= ` rotate(${(15 * time) - 90}deg)`;
+                console.log("set");
+                if(time >= 20.833333333333333 && time <= 21){ //休み時間
+                    document.body.style.backgroundColor = "rgb(18, 216, 0)";
+                }
+            }, 60000);
+            
+            bou2.style.left = `${600+ ((time - 20) * 281)}px`;
+            i.src = "平日1.png";
+            ii.src = "120分.png";
+            
+        }
+        if(date.getDay() == 3){ //BKTなし平日
+            setInterval(()=>{
+                date = new Date();
+                time = date.getHours() + (date.getMinutes() / 60) + (date.getSeconds() / 3600);
+                bou.style.transform= ` rotate(${(15 * time) - 90}deg)`;
+                console.log("set");
+                if(time >= 20.833333333333333 && time <= 21){ //休み時間
+                    document.body.style.backgroundColor = "rgb(18, 216, 0)";
+                }
+                if(time >= 17 && time <= 19){
+                    ii.src = "50分.png";
+                    bou2.style.left = `${600+ ((time - 18) * 281)}px`;
+                }
+                if(time >= 19){
+                    ii.src = "120分.png";
+                    bou2.style.left = `${600+ ((time - 20) * 281)}px`;
+                }
+            }, 60000);
+            if(time >= 17 && time <= 19){
+                ii.src = "50分.png";
+                bou2.style.left = `${600+ ((time - 18) * 281)}px`;
+            }
+            if(time >= 19){
+                ii.src = "120分.png";
+                bou2.style.left = `${600+ ((time - 20) * 281)}px`;
+            }
+            bou2.style.left = `${600+ ((time - 20) * 281)}px`;
+            i.src = "平日2.png";
+            ii.src = "120分.png";
+            
+        }
+        if(date.getDay() >= 6){ //休日
+            setInterval(()=>{
+                date = new Date();
+                time = date.getHours() + (date.getMinutes() / 60) + (date.getSeconds() / 3600);
+                bou.style.transform= ` rotate(${(15 * time) - 90}deg)`;
+                console.log("set");
+                if(time >= 20.833333333333333 && time <= 21){ //休み時間
+                    document.body.style.backgroundColor = "rgb(18, 216, 0)";
+                }
+                if(time >= 15.833333333333333 && time <= 16){ //休み時間2
+                    document.body.style.backgroundColor = "rgb(18, 216, 0)";
+                }
+                if(time >= 9.833333333333333 && time <= 10){ //休み時間
+                    document.body.style.backgroundColor = "rgb(18, 216, 0)";
+                }
+                if(time >= 8 && time <= 12){
+                    bou2.style.left = `${600+ ((time - 9) * 281)}px`;
+                }
+                if(time >= 14 && time <=18){
+                    bou2.style.left = `${600+ ((time - 15) * 281)}px`;
+                }
+                if(time >= 19){
+                    bou2.style.left = `${600+ ((time - 20) * 281)}px`;
+                }
+            }, 60000);
+            if(time >= 8 && time <= 12){
+                bou2.style.left = `${600+ ((time - 9) * 281)}px`;
+            }
+            if(time >= 14 && time <=18){
+                bou2.style.left = `${600+ ((time - 15) * 281)}px`;
+            }
+            if(time >= 19){
+                bou2.style.left = `${600+ ((time - 20) * 281)}px`;
+            }
+            i.src = "休日.png";
+            ii.src = "120分.png";
+            
+        }
+        
+    </script>
+</body>
+</html>
